@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Cores Grupo Impacto -->
+    <color name="primary">#f5941e</color>
+    <color name="primary_dark">#d97c2e</color>
+    <color name="secondary">#8b5a2b</color>
+    <color name="accent">#f5941e</color>
+    
+    <color name="background_light">#f8f9fa</color>
+    <color name="background_white">#ffffff</color>
+    
+    <color name="text_primary">#333333</color>
+    <color name="text_secondary">#999999</color>
+    <color name="text_light">#cccccc</color>
+    
+    <color name="success">#28a745</color>
+    <color name="warning">#ffc107</color>
+    <color name="error">#dc3545</color>
+    <color name="info">#17a2b8</color>
+    
+    <color name="border">#e0e0e0</color>
+    <color name="divider">#f0f0f0</color>
+    
+    <!-- Cores Grupo Impacto Degradê -->
+    <color name="grupo_impacto_gradient_start">#f5941e</color>
+    <color name="grupo_impacto_gradient_end">#d97c2e</color>
+</resources>

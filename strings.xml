@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Checklist Supervisão - Grupo Impacto</string>
+    
+    <!-- Main Activity -->
+    <string name="title_main">Checklist de Supervisão</string>
+    <string name="subtitle_main">Postos de Serviço</string>
+    <string name="brand_name">GRUPO IMPACTO - Serviços Terceirizados</string>
+    <string name="btn_new_checklist">Nova Supervisão</string>
+    <string name="btn_view_history">Histórico</string>
+    <string name="btn_about">Sobre</string>
+    
+    <!-- Checklist Activity -->
+    <string name="title_checklist">Checklist de Supervisão</string>
+    <string name="section_client_info">Informações do Cliente</string>
+    <string name="section_physical">Condições Físicas</string>
+    <string name="section_compliance">Conformidade Operacional</string>
+    <string name="section_team">Equipe e Pessoal</string>
+    <string name="section_inventory">Estoque e Materiais</string>
+    <string name="section_observations">Observações e Recomendações</string>
+    
+    <string name="hint_client_name">Nome do Cliente/Estabelecimento *</string>
+    <string name="hint_cnpj">CNPJ *</string>
+    <string name="hint_address">Endereço *</string>
+    <string name="hint_city">Cidade/Estado *</string>
+    <string name="hint_supervisor">Supervisor Responsável *</string>
+    <string name="hint_contact">Responsável no Local</string>
+    <string name="hint_visit_date">Data da Visita *</string>
+    <string name="hint_visit_time">Horário da Visita *</string>
+    
+    <string name="label_cleanliness">Estado de Limpeza e Higiene *</string>
+    <string name="label_maintenance">Manutenção Predial *</string>
+    <string name="label_equipment">Instalações e Equipamentos</string>
+    <string name="label_compliance">Conformidade com Regulamentações *</string>
+    <string name="label_safety">Procedimentos de Segurança</string>
+    <string name="label_staff_count">Quantidade de Funcionários *</string>
+    <string name="label_staff_training">Nível de Treinamento da Equipe *</string>
+    <string name="label_ppe">Uniformes e EPIs *</string>
+    <string name="label_inventory">Gestão de Estoque *</string>
+    <string name="label_materials">Materiais Observados</string>
+    
+    <string name="hint_observations">Observações Gerais</string>
+    <string name="hint_recommendations">Recomendações para Melhoria</string>
+    <string name="hint_next_visit">Data Prevista para Próxima Visita</string>
+    
+    <string name="btn_clear">Limpar</string>
+    <string name="btn_generate_pdf">Gerar PDF</string>
+    <string name="btn_share">Compartilhar</string>
+    
+    <!-- Messages -->
+    <string name="msg_required_fields">Por favor, preencha todos os campos obrigatórios!</string>
+    <string name="msg_success">Checklist salvo e PDF gerado com sucesso!</string>
+    <string name="msg_error">Erro ao gerar PDF!</string>
+    <string name="msg_about">Checklist de Supervisão v1.0.0\n\nAplicativo desenvolvido para o GRUPO IMPACTO - Serviços Terceirizados\n\nRealiza checklists de supervisão em postos de serviço com geração de relatórios em PDF offline.</string>
+    
+    <string-array name="staff_training_levels">
+        <item>Selecione...</item>
+        <item>Excelente</item>
+        <item>Bom</item>
+        <item>Adequado</item>
+        <item>Insuficiente</item>
+    </string-array>
+</resources>
