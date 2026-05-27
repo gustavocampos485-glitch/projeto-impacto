@@ -383,11 +383,35 @@
         }
 
         .photo-preview img {
-            width: 90px;
-            height: 90px;
+            width: 200px;
+            height: 150px;
             object-fit: cover;
             border-radius: 6px;
             border: 2px solid #f5941e;
+            cursor: zoom-in;
+        }
+
+        .photo-preview .photo-item {
+            position: relative;
+            display: inline-block;
+        }
+
+        .photo-preview .remove-photo {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: #e53e3e;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            font-size: 14px;
+            line-height: 22px;
+            text-align: center;
+            cursor: pointer;
+            padding: 0;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -484,13 +508,19 @@
 
                     <div class="form-group">
                         <label>Verificação do DML — Registro Fotográfico</label>
-                        <div class="file-upload-area" onclick="document.getElementById('dmlPhotos').click()">
-                            <label class="file-upload-label">
+                        <div class="file-upload-area">
+                            <div class="file-upload-label">
                                 <span class="upload-icon">📷</span>
-                                <span>Tirar foto ou escolher da galeria</span>
+                                <span>Anexar fotos do DML</span>
                                 <span class="upload-hint">Registre as condições do DML (depósito de material de limpeza)</span>
-                            </label>
-                            <input type="file" id="dmlPhotos" name="dmlPhotos" accept="image/*" capture="environment" multiple onchange="previewPhotos(this, 'dmlPreview')">
+                            </div>
+                            <div style="display:flex;gap:10px;margin-top:10px;justify-content:center;flex-wrap:wrap">
+                                <button type="button" onclick="document.getElementById('dmlCamera').click()" style="background:#f5941e;color:white;border:none;border-radius:8px;padding:10px 18px;font-size:14px;cursor:pointer;display:flex;align-items:center;gap:6px">📸 Tirar Foto</button>
+                                <button type="button" onclick="document.getElementById('dmlGaleria').click()" style="background:#555;color:white;border:none;border-radius:8px;padding:10px 18px;font-size:14px;cursor:pointer;display:flex;align-items:center;gap:6px">🖼️ Galeria (várias)</button>
+                            </div>
+                            <input type="file" id="dmlCamera" accept="image/*" capture="environment" style="display:none" onchange="appendPhotos(this, 'dmlPreview', 'dmlPhotos')">
+                            <input type="file" id="dmlGaleria" accept="image/*" multiple style="display:none" onchange="appendPhotos(this, 'dmlPreview', 'dmlPhotos')">
+                            <input type="hidden" id="dmlPhotos">
                         </div>
                         <div class="photo-preview" id="dmlPreview"></div>
                     </div>
@@ -597,13 +627,19 @@
 
                     <div class="form-group">
                         <label>Registro Fotográfico dos Colaboradores</label>
-                        <div class="file-upload-area" onclick="document.getElementById('staffPhotos').click()">
-                            <label class="file-upload-label">
+                        <div class="file-upload-area">
+                            <div class="file-upload-label">
                                 <span class="upload-icon">📷</span>
-                                <span>Tirar foto ou escolher da galeria</span>
+                                <span>Anexar fotos dos Colaboradores</span>
                                 <span class="upload-hint">Registre uniformes, EPIs e condições dos colaboradores</span>
-                            </label>
-                            <input type="file" id="staffPhotos" name="staffPhotos" accept="image/*" capture="environment" multiple onchange="previewPhotos(this, 'staffPreview')">
+                            </div>
+                            <div style="display:flex;gap:10px;margin-top:10px;justify-content:center;flex-wrap:wrap">
+                                <button type="button" onclick="document.getElementById('staffCamera').click()" style="background:#f5941e;color:white;border:none;border-radius:8px;padding:10px 18px;font-size:14px;cursor:pointer;display:flex;align-items:center;gap:6px">📸 Tirar Foto</button>
+                                <button type="button" onclick="document.getElementById('staffGaleria').click()" style="background:#555;color:white;border:none;border-radius:8px;padding:10px 18px;font-size:14px;cursor:pointer;display:flex;align-items:center;gap:6px">🖼️ Galeria (várias)</button>
+                            </div>
+                            <input type="file" id="staffCamera" accept="image/*" capture="environment" style="display:none" onchange="appendPhotos(this, 'staffPreview', 'staffPhotos')">
+                            <input type="file" id="staffGaleria" accept="image/*" multiple style="display:none" onchange="appendPhotos(this, 'staffPreview', 'staffPhotos')">
+                            <input type="hidden" id="staffPhotos">
                         </div>
                         <div class="photo-preview" id="staffPreview"></div>
                     </div>
@@ -721,37 +757,58 @@ function getRadioValue(name) {
             return selected ? selected.value : 'Não selecionado';
         }
 
-        // Mostra thumbnails ao selecionar fotos
-        function previewPhotos(input, previewId) {
+        // Armazena base64 acumulado por campo
+        const photoStore = {};
+
+        // Acumula fotos (câmera ou galeria) sem apagar as anteriores
+        function appendPhotos(input, previewId, storeKey) {
             const preview = document.getElementById(previewId);
-            preview.innerHTML = '';
+            if (!photoStore[storeKey]) photoStore[storeKey] = [];
+
             Array.from(input.files).forEach(file => {
                 const reader = new FileReader();
                 reader.onload = e => {
+                    const src = e.target.result;
+                    photoStore[storeKey].push(src);
+
+                    const item = document.createElement('div');
+                    item.className = 'photo-item';
+
                     const img = document.createElement('img');
-                    img.src = e.target.result;
-                    preview.appendChild(img);
+                    img.src = src;
+                    img.title = 'Clique para ampliar';
+                    img.onclick = () => window.open(src, '_blank');
+
+                    const idx = photoStore[storeKey].length - 1;
+                    const btn = document.createElement('button');
+                    btn.className = 'remove-photo';
+                    btn.textContent = '×';
+                    btn.title = 'Remover foto';
+                    btn.onclick = () => {
+                        photoStore[storeKey].splice(idx, 1);
+                        item.remove();
+                    };
+
+                    item.appendChild(img);
+                    item.appendChild(btn);
+                    preview.appendChild(item);
                 };
                 reader.readAsDataURL(file);
             });
+            // Limpa o input para permitir re-selecionar a mesma foto
+            input.value = '';
         }
 
-        // Converte arquivos para base64
-        function readFilesAsBase64(input) {
-            return Promise.all(Array.from(input.files).map(file =>
-                new Promise(resolve => {
-                    const reader = new FileReader();
-                    reader.onload = e => resolve(e.target.result);
-                    reader.readAsDataURL(file);
-                })
-            ));
+        // Lê fotos do store (usado na geração de PDF)
+        function getStoredPhotos(storeKey) {
+            return photoStore[storeKey] || [];
         }
 
         function photoGridHtml(base64List) {
             if (!base64List.length) return '<p style="color:#999;font-style:italic">Nenhuma foto registrada</p>';
-            return `<div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:8px">${
+            return `<div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:8px">${
                 base64List.map(src =>
-                    `<img src="${src}" style="width:160px;height:120px;object-fit:cover;border:1px solid #ddd;border-radius:4px">`
+                    `<img src="${src}" style="width:220px;height:165px;object-fit:cover;border:1px solid #ddd;border-radius:4px">`
                 ).join('')
             }</div>`;
         }
@@ -789,9 +846,9 @@ function getRadioValue(name) {
             // Abre a janela ANTES do await (mantém contexto de gesto do usuário — evita bloqueio de popup)
             const printWindow = window.open('', '_blank');
 
-            // Converte fotos para base64
-            const dmlPhotos   = await readFilesAsBase64(document.getElementById('dmlPhotos'));
-            const staffPhotos = await readFilesAsBase64(document.getElementById('staffPhotos'));
+            // Lê fotos do store acumulado
+            const dmlPhotos   = getStoredPhotos('dmlPhotos');
+            const staffPhotos = getStoredPhotos('staffPhotos');
 
             const htmlContent = `<!DOCTYPE html>
 <html lang="pt-BR"><head><meta charset="UTF-8">
