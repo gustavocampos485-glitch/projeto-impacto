@@ -414,6 +414,168 @@
             padding: 0;
             font-weight: bold;
         }
+
+        /* ===== SISTEMA DE CLIENTES ===== */
+        .btn-clientes {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #f5941e, #d97c2e);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-size: 0.95em;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 0 auto 10px;
+            box-shadow: 0 3px 10px rgba(245,148,30,0.4);
+            transition: all 0.2s;
+        }
+        .btn-clientes:hover { transform: translateY(-1px); box-shadow: 0 5px 15px rgba(245,148,30,0.5); }
+
+        /* Autocomplete */
+        .autocomplete-wrapper { position: relative; }
+        .autocomplete-list {
+            position: absolute;
+            top: 100%;
+            left: 0; right: 0;
+            background: white;
+            border: 2px solid #f5941e;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 1000;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            display: none;
+        }
+        .autocomplete-list.show { display: block; }
+        .autocomplete-item {
+            padding: 12px 15px;
+            cursor: pointer;
+            border-bottom: 1px solid #f5f5f5;
+            transition: background 0.15s;
+        }
+        .autocomplete-item:hover, .autocomplete-item.active { background: #fff3e0; }
+        .autocomplete-item .ac-nome { font-weight: 600; color: #333; }
+        .autocomplete-item .ac-info { font-size: 0.82em; color: #888; margin-top: 2px; }
+
+        /* Modal clientes */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .modal-overlay.show { display: flex; }
+        .modal {
+            background: white;
+            border-radius: 14px;
+            width: 100%;
+            max-width: 650px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        .modal-header {
+            background: linear-gradient(135deg, #f5941e, #d97c2e);
+            color: white;
+            padding: 20px 25px;
+            border-radius: 14px 14px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .modal-header h3 { margin: 0; font-size: 1.2em; }
+        .modal-close {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .modal-body { padding: 25px; }
+        .modal-tabs {
+            display: flex;
+            gap: 0;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        .modal-tab {
+            padding: 10px 20px;
+            background: none;
+            border: none;
+            font-size: 0.95em;
+            font-weight: 600;
+            color: #888;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            transition: all 0.2s;
+        }
+        .modal-tab.active { color: #f5941e; border-bottom-color: #f5941e; }
+
+        /* Lista de clientes */
+        .client-list { max-height: 350px; overflow-y: auto; }
+        .client-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            transition: all 0.2s;
+        }
+        .client-card:hover { border-color: #f5941e; background: #fff8f0; }
+        .client-card .cc-info .cc-nome { font-weight: 700; color: #333; }
+        .client-card .cc-info .cc-end { font-size: 0.82em; color: #888; margin-top: 3px; }
+        .client-card .cc-actions { display: flex; gap: 8px; }
+        .btn-del {
+            background: #fee2e2; color: #dc2626;
+            border: none; border-radius: 6px;
+            padding: 6px 12px; cursor: pointer; font-size: 0.85em;
+        }
+        .btn-del:hover { background: #fecaca; }
+        .empty-clients {
+            text-align: center; color: #888;
+            padding: 40px 20px; font-size: 0.95em;
+        }
+        .empty-clients span { font-size: 2.5em; display: block; margin-bottom: 10px; }
+
+        /* Form novo cliente */
+        .form-novo-cliente .form-group { margin-bottom: 15px; }
+        .form-novo-cliente label { font-weight: 600; font-size: 0.9em; color: #555; display: block; margin-bottom: 5px; }
+        .form-novo-cliente input {
+            width: 100%; padding: 10px 12px;
+            border: 2px solid #e0e0e0; border-radius: 6px;
+            font-size: 0.95em; font-family: inherit;
+            transition: border-color 0.2s;
+        }
+        .form-novo-cliente input:focus { outline: none; border-color: #f5941e; }
+        .btn-salvar-cliente {
+            width: 100%; padding: 12px;
+            background: linear-gradient(135deg, #f5941e, #d97c2e);
+            color: white; border: none; border-radius: 8px;
+            font-size: 1em; font-weight: 700; cursor: pointer;
+            margin-top: 5px; transition: all 0.2s;
+        }
+        .btn-salvar-cliente:hover { transform: translateY(-1px); }
+        .search-clientes {
+            width: 100%; padding: 10px 14px;
+            border: 2px solid #e0e0e0; border-radius: 8px;
+            font-size: 0.95em; margin-bottom: 14px;
+            font-family: inherit;
+        }
+        .search-clientes:focus { outline: none; border-color: #f5941e; }
     </style>
 </head>
 <body>
@@ -432,6 +594,55 @@
             </div>
         </div>
 
+
+        <!-- MODAL GERENCIAR CLIENTES -->
+        <div class="modal-overlay" id="modalClientes">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3>👥 Gerenciar Clientes</h3>
+                    <button class="modal-close" onclick="fecharModalClientes()">✕</button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-tabs">
+                        <button class="modal-tab active" id="tabListaBtn" onclick="trocarTab('lista')">📋 Clientes Cadastrados</button>
+                        <button class="modal-tab" id="tabNovoBtn" onclick="trocarTab('novo')">➕ Novo Cliente</button>
+                    </div>
+
+                    <!-- ABA: LISTA -->
+                    <div id="tabLista">
+                        <input type="text" class="search-clientes" id="searchCliente" placeholder="🔍 Buscar cliente..." oninput="renderListaClientes()">
+                        <div class="client-list" id="listaClientesCadastrados"></div>
+                    </div>
+
+                    <!-- ABA: NOVO CLIENTE -->
+                    <div id="tabNovo" style="display:none">
+                        <div class="form-novo-cliente">
+                            <div class="form-group">
+                                <label>Nome do Cliente / Estabelecimento *</label>
+                                <input type="text" id="nc_nome" placeholder="Ex: SEI Conservação - Unidade Norte">
+                            </div>
+                            <div class="form-group">
+                                <label>Endereço *</label>
+                                <input type="text" id="nc_endereco" placeholder="Rua, número, bairro">
+                            </div>
+                            <div class="form-group">
+                                <label>Cidade / Estado *</label>
+                                <input type="text" id="nc_cidade" placeholder="Ex: São Paulo / SP">
+                            </div>
+                            <div class="form-group">
+                                <label>Responsável no Local</label>
+                                <input type="text" id="nc_contato" placeholder="Nome do responsável">
+                            </div>
+                            <div class="form-group">
+                                <label>Telefone</label>
+                                <input type="text" id="nc_telefone" placeholder="(00) 00000-0000">
+                            </div>
+                            <button class="btn-salvar-cliente" onclick="salvarNovoCliente()">💾 Salvar Cliente</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="form-container">
             <div class="success-message" id="successMessage">
                 ✓ Checklist preenchido com sucesso! Gerando relatório...
@@ -441,10 +652,23 @@
                 <!-- SEÇÃO 1: INFORMAÇÕES DO CLIENTE -->
                 <div class="section">
                     <h2>Informações do Cliente</h2>
-                    
+
+                    <div style="text-align:center;margin-bottom:20px">
+                        <button type="button" class="btn-clientes" onclick="abrirModalClientes()">
+                            👥 Gerenciar Clientes Cadastrados
+                        </button>
+                    </div>
+
                     <div class="form-group">
                         <label for="clientName">Nome do Cliente/Estabelecimento *</label>
-                        <input type="text" id="clientName" name="clientName" required>
+                        <div class="autocomplete-wrapper">
+                            <input type="text" id="clientName" name="clientName" required
+                                   placeholder="Digite para buscar cliente cadastrado..."
+                                   oninput="mostrarSugestoes(this.value)"
+                                   onblur="setTimeout(()=>fecharSugestoes(),200)"
+                                   autocomplete="off">
+                            <div class="autocomplete-list" id="sugestoesClientes"></div>
+                        </div>
                     </div>
 
                     <div class="row">
@@ -955,6 +1179,128 @@ ${data.observations ? `<div class="section"><h2>6. Observações Gerais</h2><div
             e.preventDefault();
             generatePDF();
         });
+    
+    // ========== SISTEMA DE CLIENTES ==========
+    const STORAGE_KEY = 'grupoImpacto_clientes';
+
+    function getClientes() {
+        try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+        catch { return []; }
+    }
+
+    function salvarClientes(lista) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(lista));
+    }
+
+    function abrirModalClientes() {
+        document.getElementById('modalClientes').classList.add('show');
+        trocarTab('lista');
+        renderListaClientes();
+    }
+
+    function fecharModalClientes() {
+        document.getElementById('modalClientes').classList.remove('show');
+    }
+
+    // Fechar modal clicando fora
+    document.getElementById('modalClientes').addEventListener('click', function(e) {
+        if (e.target === this) fecharModalClientes();
+    });
+
+    function trocarTab(tab) {
+        document.getElementById('tabLista').style.display = tab === 'lista' ? 'block' : 'none';
+        document.getElementById('tabNovo').style.display = tab === 'novo' ? 'block' : 'none';
+        document.getElementById('tabListaBtn').classList.toggle('active', tab === 'lista');
+        document.getElementById('tabNovoBtn').classList.toggle('active', tab === 'novo');
+        if (tab === 'lista') renderListaClientes();
+    }
+
+    function renderListaClientes() {
+        const busca = (document.getElementById('searchCliente')?.value || '').toLowerCase();
+        const clientes = getClientes().filter(c =>
+            c.nome.toLowerCase().includes(busca) ||
+            (c.cidade || '').toLowerCase().includes(busca)
+        );
+        const div = document.getElementById('listaClientesCadastrados');
+        if (!clientes.length) {
+            div.innerHTML = '<div class="empty-clients"><span>👥</span>Nenhum cliente cadastrado ainda.<br>Use a aba "Novo Cliente" para cadastrar.</div>';
+            return;
+        }
+        div.innerHTML = clientes.map((c, i) => `
+            <div class="client-card">
+                <div class="cc-info">
+                    <div class="cc-nome">${c.nome}</div>
+                    <div class="cc-end">${c.endereco ? c.endereco + ' — ' : ''}${c.cidade || ''}</div>
+                </div>
+                <div class="cc-actions">
+                    <button class="btn-del" onclick="excluirCliente(${i})">🗑️ Excluir</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function salvarNovoCliente() {
+        const nome = document.getElementById('nc_nome').value.trim();
+        const endereco = document.getElementById('nc_endereco').value.trim();
+        const cidade = document.getElementById('nc_cidade').value.trim();
+        const contato = document.getElementById('nc_contato').value.trim();
+        const telefone = document.getElementById('nc_telefone').value.trim();
+
+        if (!nome) { alert('⚠️ Informe o nome do cliente!'); return; }
+        if (!endereco) { alert('⚠️ Informe o endereço!'); return; }
+        if (!cidade) { alert('⚠️ Informe a cidade/estado!'); return; }
+
+        const clientes = getClientes();
+        if (clientes.find(c => c.nome.toLowerCase() === nome.toLowerCase())) {
+            alert('⚠️ Já existe um cliente com esse nome!'); return;
+        }
+
+        clientes.push({ nome, endereco, cidade, contato, telefone });
+        salvarClientes(clientes);
+
+        // Limpar campos
+        ['nc_nome','nc_endereco','nc_cidade','nc_contato','nc_telefone'].forEach(id => document.getElementById(id).value = '');
+
+        alert('✅ Cliente "' + nome + '" cadastrado com sucesso!');
+        trocarTab('lista');
+    }
+
+    function excluirCliente(idx) {
+        const clientes = getClientes();
+        if (!confirm('Excluir o cliente "' + clientes[idx].nome + '"?')) return;
+        clientes.splice(idx, 1);
+        salvarClientes(clientes);
+        renderListaClientes();
+    }
+
+    // Autocomplete no campo clientName
+    function mostrarSugestoes(valor) {
+        const lista = document.getElementById('sugestoesClientes');
+        if (!valor || valor.length < 1) { lista.classList.remove('show'); return; }
+        const clientes = getClientes().filter(c => c.nome.toLowerCase().includes(valor.toLowerCase()));
+        if (!clientes.length) { lista.classList.remove('show'); return; }
+        lista.innerHTML = clientes.map((c, i) => `
+            <div class="autocomplete-item" onclick="selecionarCliente(${getClientes().indexOf(c)})">
+                <div class="ac-nome">${c.nome}</div>
+                <div class="ac-info">${c.endereco ? c.endereco + ' | ' : ''}${c.cidade || ''}</div>
+            </div>
+        `).join('');
+        lista.classList.add('show');
+    }
+
+    function fecharSugestoes() {
+        document.getElementById('sugestoesClientes').classList.remove('show');
+    }
+
+    function selecionarCliente(idx) {
+        const c = getClientes()[idx];
+        if (!c) return;
+        document.getElementById('clientName').value = c.nome;
+        if (c.endereco) document.getElementById('address').value = c.endereco;
+        if (c.cidade) document.getElementById('city').value = c.cidade;
+        if (c.contato) document.getElementById('contactPerson').value = c.contato;
+        fecharSugestoes();
+    }
     </script>
 </body>
 </html>
